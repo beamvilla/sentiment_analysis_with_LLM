@@ -1,5 +1,3 @@
-from config import LLMConfig
+from logger import service_log
 
-
-llm_config = LLMConfig()
-print(llm_config.LIMIT_CONNECT)
+service_log().info(f"Sending a request to")
