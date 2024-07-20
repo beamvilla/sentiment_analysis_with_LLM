@@ -4,9 +4,10 @@ from typing import Mapping, Any
 import time
 
 from logger import service_log
+from .core import CoreService
 
 
-class GPTService:
+class GPTService(CoreService):
     def __init__(self, llm_config: Mapping[str, Any]) -> None:
         self.set_env(llm_config)
     

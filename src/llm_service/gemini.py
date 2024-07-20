@@ -4,9 +4,10 @@ import google.generativeai as genai
 from typing import Mapping, Any
 
 from logger import service_log
+from .core import CoreService
 
 
-class GeminiService:
+class GeminiService(CoreService):
     def __init__(self, llm_config: Mapping[str, Any]) -> None:
         self.set_env(llm_config)
     

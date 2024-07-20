@@ -1,8 +1,10 @@
 from typing import Mapping, Any
+from dotenv import load_dotenv
 
 
 class LLMCaller:
     def __init__(self, llm_config: Mapping[str, Any]) -> None:
+        load_dotenv()
         self.set_llm_service(llm_config)
         
     def set_llm_service(self, llm_config: Mapping[str, Any]):
