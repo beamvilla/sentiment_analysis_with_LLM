@@ -43,7 +43,6 @@ class GeminiService(CoreService):
     def call(self, prompt: str) -> str:
         try_connect = 0
         while True:
-            service_log().info("Sending a request to gemini")
             try:
                 response = self.model.generate_content(
                                 prompt,
@@ -57,7 +56,6 @@ class GeminiService(CoreService):
                 if try_connect > self.llm_config.LIMIT_CONNECT:
                     service_log().error(f"Can't connect to {self.llm_config.MODEL}")
                     raise
-                service_log().info(f"retry to connect {self.llm_config.MODEL} round {try_connect}")
                 continue
 
             try:

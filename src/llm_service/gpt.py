@@ -20,7 +20,6 @@ class GPTService(CoreService):
         try_connect = 0
         while True:
             try:
-                service_log().info(f"Sending a request to {self.llm_config.MODEL}")
                 completion = openai.ChatCompletion.create(
                                     model=self.model,
                                     messages=[
@@ -36,7 +35,6 @@ class GPTService(CoreService):
                 if try_connect > self.llm_config.LIMIT_CONNECT:
                     service_log().error(f"Can't connect to {self.llm_config.MODEL}")
                     raise
-                service_log().info(f"retry to connect {self.llm_config.MODEL} round {try_connect}")
                 continue
             
             try:

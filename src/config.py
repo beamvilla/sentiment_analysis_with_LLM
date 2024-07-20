@@ -24,6 +24,3 @@ def load_yaml_config(config_path: str = "./config/config.yaml"):
     global config
     with open(config_path, "r") as file:
         config = yaml.safe_load(file)
-
-
-load_yaml_config()
