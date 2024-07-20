@@ -17,6 +17,7 @@ class LLMConfig:
         self.LIMIT_CONNECT: int  = llm_config.CONFIG.get("LIMIT_CONNECT", 3)
         self.TEMPERATURE: float  = llm_config.CONFIG.get("TEMPERATURE", 0.0)
         self.MAX_TOKENS: int     = llm_config.CONFIG.get("MAX_TOKENS", 1024)
+        self.RETRY_WAITING: int  = llm_config.CONFIG.get("RETRY_WAITING", 30)
 
 
 def load_yaml_config(config_path: str = "./config/config.yaml"):

@@ -1,0 +1,71 @@
+import os
+import time
+import google.generativeai as genai
+from typing import Mapping, Any
+
+from logger import service_log
+
+
+class GeminiService:
+    def __init__(self, llm_config: Mapping[str, Any]) -> None:
+        self.set_env(llm_config)
+    
+    def set_env(self, llm_config: Mapping[str, Any]):
+        self.llm_config = llm_config
+        gemini_api_key = os.environ["GEMINI_API_KEY"]
+        genai.configure(api_key=gemini_api_key)
+        self.safety_settings=[
+                    {
+                        "category": "HARM_CATEGORY_DANGEROUS",
+                        "threshold": "BLOCK_NONE",
+                    },
+                    {
+                        "category": "HARM_CATEGORY_HARASSMENT",
+                        "threshold": "BLOCK_NONE",
+                    },
+                    {
+                        "category": "HARM_CATEGORY_HATE_SPEECH",
+                        "threshold": "BLOCK_NONE",
+                    },
+                    {
+                        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                        "threshold": "BLOCK_NONE",
+                    },
+                    {
+                        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                        "threshold": "BLOCK_NONE",
+                    }
+                ]
+        self.generation_config = genai.types.GenerationConfig(temperature=self.llm_config.TEMPERATURE)
+        self.model = genai.GenerativeModel(self.llm_config.MODEL)
+
+    def call(self, prompt: str) -> str:
+        try_connect = 0
+        while True:
+            service_log().info("Sending a request to gemini")
+            try:
+                response = self.model.generate_content(
+                                prompt,
+                                generation_config=self.generation_config,
+                                safety_settings=self.safety_settings
+                            )
+            except Exception as err:
+                service_log().error(f"{self.llm_config.MODEL} request error: {err}, waiting for connecting to {self.llm_config.MODEL} again")
+                time.sleep(self.llm_config.RETRY_WAITING)
+                try_connect += 1
+                if try_connect > self.llm_config.LIMIT_CONNECT:
+                    service_log().error(f"Can't connect to {self.llm_config.MODEL}")
+                    raise
+                service_log().info(f"retry to connect {self.llm_config.MODEL} round {try_connect}")
+                continue
+
+            try:
+                ans = response.text
+            except Exception as err:
+                try:
+                    for candidate in response.candidates:
+                        return str([part.text for part in candidate.content.parts])
+                except Exception as err:
+                    service_log().error(f"Got invalid answer format: {ans}, with error: {err}")
+                    raise
+            return ans

@@ -1,3 +1,10 @@
-from logger import service_log
+from prompt.prompt import get_sentiment_classifier_prompt
+from llm_service.llm_caller import LLMCaller
+from config import LLMConfig
 
-service_log().info(f"Sending a request to")
+
+sentiment_classifier_prompt = get_sentiment_classifier_prompt(message="อาหารรสชาตห่วยแตก")
+llm_config = LLMConfig()
+llm_service = LLMCaller(llm_config)
+ans = llm_service.call(sentiment_classifier_prompt)
+print(ans)
