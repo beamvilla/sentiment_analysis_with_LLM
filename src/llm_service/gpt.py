@@ -2,9 +2,16 @@ import openai
 import os
 from typing import Mapping, Any
 import time
+from ratelimit import limits, sleep_and_retry
 
 from logger import service_log
 from .core import CoreService
+
+
+
+global N_LIMIT_REQUEST, LIMIT_PERIOD
+N_LIMIT_REQUEST = 120
+LIMIT_PERIOD = 60
 
 
 class GPTService(CoreService):
@@ -16,12 +23,14 @@ class GPTService(CoreService):
         openai.api_key = os.getenv("OPENAI_API_KEY")
         openai.api_requestor.TIMEOUT_SECS = 60
     
+    @sleep_and_retry
+    @limits(calls=N_LIMIT_REQUEST, period=LIMIT_PERIOD)
     def call(self, prompt: str) -> str:
         try_connect = 0
         while True:
             try:
                 completion = openai.ChatCompletion.create(
-                                    model=self.model,
+                                    model=self.llm_config.MODEL,
                                     messages=[
                                         {"role": "user", "content": prompt}
                                     ],

@@ -2,9 +2,15 @@ import os
 import time
 import google.generativeai as genai
 from typing import Mapping, Any
+from ratelimit import limits, sleep_and_retry
 
 from logger import service_log
 from .core import CoreService
+
+
+global N_LIMIT_REQUEST, LIMIT_PERIOD
+N_LIMIT_REQUEST = 10
+LIMIT_PERIOD = 60
 
 
 class GeminiService(CoreService):
@@ -40,6 +46,8 @@ class GeminiService(CoreService):
         self.generation_config = genai.types.GenerationConfig(temperature=self.llm_config.TEMPERATURE)
         self.model = genai.GenerativeModel(self.llm_config.MODEL)
 
+    @sleep_and_retry
+    @limits(calls=N_LIMIT_REQUEST, period=LIMIT_PERIOD)
     def call(self, prompt: str) -> str:
         try_connect = 0
         while True:
