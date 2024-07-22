@@ -9,7 +9,7 @@ from .core import CoreService
 
 
 global N_LIMIT_REQUEST, LIMIT_PERIOD
-N_LIMIT_REQUEST = 10
+N_LIMIT_REQUEST = 60
 LIMIT_PERIOD = 60
 
 

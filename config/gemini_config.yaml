@@ -1,5 +1,5 @@
 LLM_CONFIG:
-  MODEL: gemini-pro
+  MODEL: gemini-1.5-flash
   CONFIG:
     LIMIT_CONNECT: 3
     TEMPERATURE: 0.0
