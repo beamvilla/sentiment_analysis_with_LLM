@@ -1,5 +1,8 @@
 name: Test Service
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - "**/*.ipynb"
 jobs:
   service_testing:
     runs-on: ubuntu-latest
