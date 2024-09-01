@@ -1,0 +1,7 @@
+name: Test Service
+on: [push]
+jobs:
+  service_testing:
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker compose -f docker-compose.test.yaml up --build

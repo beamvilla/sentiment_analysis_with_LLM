@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  sentiment_analysis_with_llm:
+    container_name: sentiment_analysis_with_llm
+    image: sentiment_analysis_with_llm:latest
+    build:
+       context: .
+       dockerfile: docker/Dockerfile
+    volumes:
+      - .:/sentiment_analysis_with_LLM
+    command: ["python3", "/sentiment_analysis_with_LLM/tests/service_testing.py"]
