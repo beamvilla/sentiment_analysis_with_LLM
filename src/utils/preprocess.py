@@ -5,11 +5,11 @@ def remove_special_char(message: str) -> str:
     """
     Remove special case and emoji from message.
     """
-    pattern = r"[^\u0E00-\u0E7Fa-zA-Z\d\s]|[ฯ'฿]|^\s*|[๐-๙]+|\xa0|ๆ"
+    pattern = r"[^\u0E00-\u0E7Fa-zA-Z\d\s'?]|[ฯ฿]|[๐-๙]+|\xa0|ๆ"
     clean_text = re.sub(r",", " ", message)
     clean_text = re.sub(pattern, "", clean_text)
-    clean_text = re.sub(r"[)]|\s+", " ", clean_text)
-    return clean_text.lower()
+    clean_text = re.sub(r"[)]", " ", clean_text)
+    return clean_text.strip()
 
 
 def remove_url(message: str) -> str:

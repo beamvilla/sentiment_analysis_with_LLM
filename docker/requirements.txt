@@ -8,3 +8,4 @@ google-generativeai
 protobuf==3.20.*
 pyarrow
 ratelimit
+regex
