@@ -9,6 +9,7 @@ class TestPreprocess(unittest.TestCase):
     def test_remove_special_char(self):
         test_cases = [
             {"message": "abc", "expect_output": "abc"},
+            {"message": "Abc", "expect_output": "Abc"},
             {"message": "abc😆😆😆", "expect_output": "abc"},
             {"message": "I'm fine !!!!", "expect_output": "I'm fine"}
         ]
