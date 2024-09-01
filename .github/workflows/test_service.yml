@@ -1,0 +1,10 @@
+name: Test Service
+on: [push]
+jobs:
+  service_testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pwd
+      - run: ls
+      - run: docker compose -f docker-compose.test.yaml up
