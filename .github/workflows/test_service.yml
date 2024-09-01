@@ -3,6 +3,7 @@ on:
   push:
     paths-ignore:
       - '**/*.ipynb'
+      - 'README.md'
 jobs:
   service_testing:
     runs-on: ubuntu-latest
