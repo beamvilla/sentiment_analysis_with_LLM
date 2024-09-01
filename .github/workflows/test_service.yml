@@ -4,4 +4,4 @@ jobs:
   service_testing:
     runs-on: ubuntu-latest
     steps:
-      - run: docker compose -f docker-compose.test.yaml up --build
+      - run: docker compose -f ./sentiment_analysis_with_LLM/docker-compose.test.yaml up
