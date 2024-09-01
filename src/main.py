@@ -4,7 +4,7 @@ from config import LLMConfig, load_yaml_config
 
 
 sentiment_classifier_prompt = get_sentiment_classifier_prompt(message="อาหารรสชาตห่วยแตก")
-load_yaml_config()
+load_yaml_config("./config/gemini_config.yaml")
 llm_config = LLMConfig()
 llm_service = LLMCaller(llm_config)
 ans = llm_service.call(sentiment_classifier_prompt)

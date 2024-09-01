@@ -10,3 +10,7 @@ $ docker build -f docker/Dockerfile -t sentiment_analysis_with_llm:latest .
 ``` bash
 $ docker run -it --net=host --rm -v $(pwd):/sentiment_analysis_with_LLM sentiment_analysis_with_llm:latest /bin/bash
 ```
+# Start notebook
+``` bash
+python3 -m notebook --allow-root
+```
