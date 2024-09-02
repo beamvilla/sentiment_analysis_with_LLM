@@ -1,3 +1,5 @@
+from fastapi import FastAPI
+
 from prompt.prompt import get_sentiment_classifier_prompt
 from llm_service.llm_caller import LLMCaller
 from config import LLMConfig, load_yaml_config
