@@ -1,14 +1,12 @@
-name: Test Service
+name: Sentiment Analysis with LLM Service
 on:
   push:
     paths-ignore:
       - '**/*.ipynb'
       - 'README.md'
 jobs:
-  service_testing:
+  unit_testing:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pwd
-      - run: ls
       - run: docker compose -f docker-compose.test.yaml up --build

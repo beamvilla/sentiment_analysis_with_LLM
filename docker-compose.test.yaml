@@ -8,4 +8,4 @@ services:
        dockerfile: docker/Dockerfile
     volumes:
       - .:/sentiment_analysis_with_LLM
-    command: ["python3", "/sentiment_analysis_with_LLM/tests/service_testing.py"]
+    command: ["python3", "/sentiment_analysis_with_LLM/tests/unit_testing.py"]
