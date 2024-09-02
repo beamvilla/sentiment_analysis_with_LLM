@@ -7,7 +7,8 @@ from config import LLMConfig, load_yaml_config
 
 app = FastAPI()
 
-sentiment_classifier_prompt = get_sentiment_classifier_prompt(message="อาหารรสชาตห่วยแตก")
+message = "อาหารรสชาตห่วยแตก"
+sentiment_classifier_prompt = get_sentiment_classifier_prompt(message=message)
 load_yaml_config("./config/gemini_config.yaml")
 llm_config = LLMConfig()
 llm_service = LLMCaller(llm_config)
