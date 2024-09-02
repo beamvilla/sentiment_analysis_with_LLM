@@ -1,7 +1,7 @@
 name: Sentiment Analysis with LLM Service
 on:
   push:
-  branches:
+    branches:
       - master
       - develop
     paths-ignore:
