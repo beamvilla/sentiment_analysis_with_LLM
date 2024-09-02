@@ -1,6 +1,9 @@
 name: Sentiment Analysis with LLM Service
 on:
   push:
+  branches:
+      - master
+      - develop
     paths-ignore:
       - '**/*.ipynb'
       - 'README.md'
